@@ -2,18 +2,15 @@
   "name": "api_modelo",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server.ts"
+    "dev": "next dev"
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
-  "devDependencies": {
-    "prisma": "^7.2.0",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+  "dependencies": {
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
