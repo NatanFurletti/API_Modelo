@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+/* CONTAINER */
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* TEXTO */
+h1 {
+  z-index: 5;
+}
+
+/* CONTAINER INICIAL DOS BOTÕES */
+.initial-buttons {
+  margin-top: 24px;
+  display: flex;
+  gap: 20px;
+}
+
+/* BASE DOS BOTÕES */
+button {
+  padding: 16px 32px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* BOTÃO SIM */
+.btn-sim {
+  background-color: #16a34a;
+  color: white;
+}
+
+/* BOTÃO NÃO */
+.btn-nao {
+  background-color: #dc2626;
+  color: white;
+}
+
+/* CLASSE PARA POSIÇÃO ABSOLUTA */
+.absolute {
+  position: absolute;
+  transition:
+    transform 0.4s ease,
+    top 0.4s ease,
+    left 0.4s ease;
+  z-index: 6;
+}
