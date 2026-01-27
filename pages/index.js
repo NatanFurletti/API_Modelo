@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Home() {
-  const pergunta = "Vou ter seu cuzin dnv mo?\u{1F979}";
+  const pergunta = "Vou ter seu  dnv mo?\u{1F979}";
 
   const [scale, setScale] = useState(1);
   const [started, setStarted] = useState(false);
