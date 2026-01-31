@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Home() {
-  const pergunta = "Vou ter seu  dnv mo?\u{1F979}";
+  const pergunta = "Peteca amanha??🥹";
 
   const [scale, setScale] = useState(1);
   const [started, setStarted] = useState(false);
+  const [venceu, setVenceu] = useState(false);
 
   const [simPos, setSimPos] = useState({ top: 0, left: 0 });
   const [naoPos, setNaoPos] = useState({ top: 0, left: 0 });
 
-  const youtubeUrl =
-    "https://www.youtube.com/watch?v=1Y6vYSUn9TE&list=RD1Y6vYSUn9TE&start_radio=1";
+  const audioRef = useRef(null);
 
   function randomPosition() {
     return {
@@ -19,65 +19,94 @@ export default function Home() {
     };
   }
 
-  function handleNao() {
+  function handleNao(e) {
+    e.preventDefault();
     if (!started) setStarted(true);
 
-    setScale((prev) => prev + 0.4);
+    setScale((prev) => prev * 1.8);
     setSimPos(randomPosition());
     setNaoPos(randomPosition());
   }
 
-  function handleSim() {
-    window.location.href = youtubeUrl;
+  function handleSim(e) {
+    e.preventDefault();
+
+    // 🔊 tocar áudio (AGORA FUNCIONA)
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+    }
+
+    setVenceu(true);
   }
 
   return (
     <div className="container">
-      <h1>{pergunta}</h1>
+      {/* 🔊 ÁUDIO PRECISA EXISTIR ANTES DO CLIQUE */}
+      <audio ref={audioRef} src="/sim-venceu.mp3" preload="auto" />
 
-      {/* POSIÇÃO INICIAL */}
-      {!started && (
-        <div className="initial-buttons">
-          <button className="btn-sim" onClick={handleSim}>
-            Sim
-          </button>
-          <button className="btn-nao" onClick={handleNao}>
-            Não
-          </button>
+      {venceu && (
+        <div className="sim-venceu">
+          <div className="confetti"></div>
+          <h2>🎉 Partiu Petequinha 🎉</h2>
         </div>
       )}
 
-      {/* APÓS COMEÇAR */}
-      {started && (
+      {!venceu && (
         <>
-          <button
-            className="btn-sim absolute"
-            onClick={handleSim}
-            style={{
-              top: `${simPos.top}%`,
-              left: `${simPos.left}%`,
-              transform: `translate(-50%, -50%) scale(${scale})`,
-            }}
-          >
-            Sim
-          </button>
+          <h1>{pergunta}</h1>
 
-          {scale < 12 && (
-            <button
-              className="btn-nao absolute"
-              onClick={handleNao}
-              style={{
-                top: `${naoPos.top}%`,
-                left: `${naoPos.left}%`,
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              Não
-            </button>
+          {!started && (
+            <div className="initial-buttons">
+              <button type="button" className="btn-sim" onClick={handleSim}>
+                Sim
+              </button>
+
+              <button type="button" className="btn-nao" onClick={handleNao}>
+                Não
+              </button>
+            </div>
+          )}
+
+          {started && (
+            <>
+              <button
+                type="button"
+                className={`btn-sim ${
+                  scale >= 12 ? "sim-fullscreen" : "absolute"
+                }`}
+                onClick={handleSim}
+                style={
+                  scale < 12
+                    ? {
+                        top: `${simPos.top}%`,
+                        left: `${simPos.left}%`,
+                        transform: `translate(-50%, -50%) scale(${scale})`,
+                      }
+                    : {}
+                }
+              >
+                Sim
+              </button>
+
+              {scale < 12 && (
+                <button
+                  type="button"
+                  className="btn-nao absolute"
+                  onClick={handleNao}
+                  style={{
+                    top: `${naoPos.top}%`,
+                    left: `${naoPos.left}%`,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  Não
+                </button>
+              )}
+            </>
           )}
         </>
       )}
     </div>
   );
-  return <h1>Meu trenzin lindo ta na net</h1>;
 }
