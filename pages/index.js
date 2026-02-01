@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
 export default function Home() {
-  const pergunta = "Peteca amanha??🥹";
+  const pergunta = "Petequinha??🥹";
 
   const [scale, setScale] = useState(1);
   const [started, setStarted] = useState(false);
